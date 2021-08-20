@@ -10,7 +10,7 @@ Ordinarily when writing integration tests (for example using SpecFlow) you will 
 
 There are pros and cons to deciding on one: "in-memory" is fast and can run on the build server, but doesn't thoroughly test your data provider layer. Using "real" repositories more thoroughly tests your code layers as it proves the integration of your code with the chosen data storage engine, but is slower and requires connectivity to a running instance of your data storage engine of choice (e.g. a MongoDB or SQL instance).
 
-Ideally it's nice to have both options, but a lot times this leads to a duplication of the integration test code - in SpecFlow terms the "step definitions" can look very different when you want to "setup" a MongoDB than when you only to setup an in-memory context and pass that to an interceptor/fake repository.
+Ideally it's nice to have both options, but a lot times this leads to a duplication of the integration test code - in SpecFlow terms the "step definitions" can look very different when you want to "setup" a MongoDB than when you only want to setup an in-memory context and pass that to an interceptor/fake repository.
 
 The idea of TDDF is that by setting your test data against the TestDataStore you can then use that same data in an in-memory repository as easily as enabling a "real" backing store and the TDDF plugins will take care of actually standing up the "real" data resource.
 

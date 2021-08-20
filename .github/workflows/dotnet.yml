@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/TestDataDefinitionFramework.sln
     - name: Build
-      run: find -type f -name "*Tests.csproj" -exec dotnet test --configuration Release --no-build --verbosity normal {} \;
+      run: dotnet build src/TestDataDefinitionFramework.sln --no-restore --configuration Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: find -type f -name "*Tests.csproj" -exec dotnet test --configuration Release --no-build --verbosity normal {} \;

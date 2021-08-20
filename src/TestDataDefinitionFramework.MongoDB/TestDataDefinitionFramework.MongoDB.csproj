@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TestDataDefinitionFramework.Core\TestDataDefinitionFramework.Core.csproj" />
+    <ProjectReference Include="..\TestDataDefinitionFramework.Docker\TestDataDefinitionFramework.Docker.csproj" />
   </ItemGroup>
 
 </Project>

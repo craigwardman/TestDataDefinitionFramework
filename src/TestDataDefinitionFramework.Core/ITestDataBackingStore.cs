@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TestDataDefinitionFramework.Core
 {
     public interface ITestDataBackingStore
     {
-        Task CommitAsync(TestDataStore store);
+        Task InitializeAsync();
+
+        Task CommitAsync<T>(RepositoryConfig config, IReadOnlyList<T> items);
     }
 }

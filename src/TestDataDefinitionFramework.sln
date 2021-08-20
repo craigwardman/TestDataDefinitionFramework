@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataDefinitionFramework
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E7760890-8EA3-4077-B2C3-738760C25A71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataDefinitionFramework.Testing.ExampleTests", "TestDataDefinitionFramework.Testing.ExampleTests\TestDataDefinitionFramework.Testing.ExampleTests.csproj", "{F7A41972-4050-48E0-95D6-44FB885554CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataDefinitionFramework.Testing.ExampleTests", "TestDataDefinitionFramework.Testing.ExampleTests\TestDataDefinitionFramework.Testing.ExampleTests.csproj", "{F7A41972-4050-48E0-95D6-44FB885554CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataDefinitionFramework.Testing.ExampleSut", "TestDataDefinitionFramework.Testing.ExampleSut\TestDataDefinitionFramework.Testing.ExampleSut.csproj", "{60ED455E-818E-4E87-A0BB-C9645FA412F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataDefinitionFramework.Testing.ExampleSut", "TestDataDefinitionFramework.Testing.ExampleSut\TestDataDefinitionFramework.Testing.ExampleSut.csproj", "{60ED455E-818E-4E87-A0BB-C9645FA412F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataDefinitionFramework.Testing.ExampleSut.MongoDB", "TestDataDefinitionFramework.Testing.ExampleSut.MongoDB\TestDataDefinitionFramework.Testing.ExampleSut.MongoDB.csproj", "{2C8A4D10-B265-4EC6-9682-37966ECEF063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataDefinitionFramework.Testing.ExampleSut.MongoDB", "TestDataDefinitionFramework.Testing.ExampleSut.MongoDB\TestDataDefinitionFramework.Testing.ExampleSut.MongoDB.csproj", "{2C8A4D10-B265-4EC6-9682-37966ECEF063}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataDefinitionFramework.Testing.ExampleSut.Abstractions", "TestDataDefinitionFramework.Testing.ExampleSut.Abstractions\TestDataDefinitionFramework.Testing.ExampleSut.Abstractions.csproj", "{F04B45B2-18C5-451B-8B7D-6819EB317DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataDefinitionFramework.Testing.ExampleSut.Abstractions", "TestDataDefinitionFramework.Testing.ExampleSut.Abstractions\TestDataDefinitionFramework.Testing.ExampleSut.Abstractions.csproj", "{F04B45B2-18C5-451B-8B7D-6819EB317DBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataDefinitionFramework.Docker", "TestDataDefinitionFramework.Docker\TestDataDefinitionFramework.Docker.csproj", "{75BC573C-9B87-44DE-AB40-DA3D7B994D96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,18 @@ Global
 		{F04B45B2-18C5-451B-8B7D-6819EB317DBB}.Release|x64.Build.0 = Release|Any CPU
 		{F04B45B2-18C5-451B-8B7D-6819EB317DBB}.Release|x86.ActiveCfg = Release|Any CPU
 		{F04B45B2-18C5-451B-8B7D-6819EB317DBB}.Release|x86.Build.0 = Release|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Debug|x64.Build.0 = Debug|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Debug|x86.Build.0 = Debug|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Release|x64.ActiveCfg = Release|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Release|x64.Build.0 = Release|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Release|x86.ActiveCfg = Release|Any CPU
+		{75BC573C-9B87-44DE-AB40-DA3D7B994D96}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

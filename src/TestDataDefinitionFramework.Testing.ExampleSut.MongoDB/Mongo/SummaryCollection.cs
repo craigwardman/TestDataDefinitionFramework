@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace TestDataDefinitionFramework.Testing.ExampleSut.MongoDB.Mongo
 {
-    internal class SummaryCollection : IBootstrapped
+    public class SummaryCollection : IBootstrapped
     {
         public const string Name = "summaries";
 
@@ -18,9 +18,10 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.MongoDB.Mongo
         {
             if (!BsonClassMap.IsClassMapRegistered(typeof(SummaryItem)))
             {
-                BsonClassMap.RegisterClassMap<SummaryItem>(leadDataMap =>
+                BsonClassMap.RegisterClassMap<SummaryItem>(dataMap =>
                 {
-                    leadDataMap.AutoMap();
+                    dataMap.AutoMap();
+                    dataMap.MapIdField(m => m.Name);
                 });
             }
         }

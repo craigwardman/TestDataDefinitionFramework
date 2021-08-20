@@ -6,6 +6,10 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>UseRealProvider</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
@@ -23,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TestDataDefinitionFramework.Core\TestDataDefinitionFramework.Core.csproj" />
+    <ProjectReference Include="..\TestDataDefinitionFramework.MongoDB\TestDataDefinitionFramework.MongoDB.csproj" />
     <ProjectReference Include="..\TestDataDefinitionFramework.Testing.ExampleSut\TestDataDefinitionFramework.Testing.ExampleSut.csproj" />
   </ItemGroup>
 

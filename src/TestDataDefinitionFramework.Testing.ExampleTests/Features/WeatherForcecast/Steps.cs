@@ -12,13 +12,11 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests.Features.WeatherForce
     [Binding]
     public class Steps
     {
-        private readonly TestDataStore _testDataStore;
         private readonly Interactions _interactions;
         private readonly Context _context;
 
-        public Steps(TestDataStore testDataStore, Interactions interactions, Context context)
+        public Steps(Interactions interactions, Context context)
         {
-            _testDataStore = testDataStore;
             _interactions = interactions;
             _context = context;
         }
@@ -26,7 +24,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests.Features.WeatherForce
         [Given(@"the summaries repository returns no items")]
         public void GivenTheSummariesRepositoryReturnsNoItems()
         {
-            _testDataStore.Repository<SummaryItem>().Items = Array.Empty<SummaryItem>();
+            TestDataStore.Repository<SummaryItem>(SummaryCollection.Name).Items = Array.Empty<SummaryItem>();
         }
 
         [When(@"a request is made to get the weather forecast")]
@@ -45,7 +43,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests.Features.WeatherForce
         [Given(@"the summaries repository returns '(.*)'")]
         public void GivenTheSummariesRepositoryReturns(IReadOnlyList<string> items)
         {
-            _testDataStore.Repository<SummaryItem>().Items = items.Select(i => new SummaryItem {Name = i}).ToArray();
+            TestDataStore.Repository<SummaryItem>(SummaryCollection.Name).Items = items.Select(i => new SummaryItem {Name = i}).ToArray();
         }
 
     }

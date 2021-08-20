@@ -1,7 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+
+    <Title>TestDataDefinitionFramework.Docker</Title>
+    <PackageId>TestDataDefinitionFramework.Docker</PackageId>
+    <PackageDescription>Docker client wrapper used by TestDataDefinitionFramework extensions</PackageDescription>
+    <Version>1.0.0</Version>
+    <Authors>Craig Wardman</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/craigwardman/TestDataDefinitionFramework</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/craigwardman/TestDataDefinitionFramework.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

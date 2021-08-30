@@ -138,26 +138,6 @@ public class Context
         }
     }
 }
-
-[Binding]
-public class TestDataSourceHooks
-{
-    private readonly ScenarioContext _scenarioContext;
-
-    public TestDataSourceHooks(ScenarioContext scenarioContext)
-    {
-        _scenarioContext = scenarioContext;
-    }
-
-    [BeforeScenarioBlock(Order = 100)]
-    public async Task Commit()
-    {
-        if (_scenarioContext.CurrentScenarioBlock == ScenarioBlock.When)
-        {
-            await TestDataStore.CommitAllAsync();
-        }
-    }
-}
 ```
 
 ## Contributing

@@ -108,6 +108,58 @@ Now you can run your tests against an in-memory fake, or against a "real" reposi
 ## Architecture
 ![Architecture Diagram](/docs/Architecture.png)
 
+## Advanced Examples
+### Using a custom builder
+If you want to build up an object across multiple steps and then "build" it as part of the commit, then hook in earlier than the TDDF commit to set the state in the TestDataStore rather than having to remove the builder, e.g.:
+
+```csharp
+[Binding]
+public class Context
+{
+    private readonly ScenarioContext _scenarioContext;
+
+    public Context(ScenarioContext scenarioContext)
+    {
+        _scenarioContext = scenarioContext;
+    }
+
+    public MyClassDataBuilder MyClassDataBuilder { get; set; }
+
+    [BeforeScenarioBlock(Order = 0)]
+    public void BeforeCommit()
+    {
+        if (_scenarioContext.CurrentScenarioBlock == ScenarioBlock.When)
+        {
+            var myClassInstance = MyClassDataBuilder?.Build();
+            TestDataStore.Repository<MyClass>().Items =
+                myClassInstance != null ?
+                new[] { myClassInstance } :
+                Array.Empty<MyClass>();
+        }
+    }
+}
+
+[Binding]
+public class TestDataSourceHooks
+{
+    private readonly ScenarioContext _scenarioContext;
+
+    public TestDataSourceHooks(ScenarioContext scenarioContext)
+    {
+        _scenarioContext = scenarioContext;
+    }
+
+    [BeforeScenarioBlock(Order = 100)]
+    public async Task Commit()
+    {
+        if (_scenarioContext.CurrentScenarioBlock == ScenarioBlock.When)
+        {
+            await TestDataStore.CommitAllAsync();
+        }
+    }
+}
+```
+
 ## Contributing
 As you can see this repository is still in it's infancy and so far I've only needed to create a MongoDB plugin.
 Feel free to create your own plugins and raise a merge request so this can grow in it's usefulness!

@@ -179,20 +179,20 @@ public class MyDataStoreInterceptor : IMyDataStore
         _realDataStore = realDataStore;
     }
 
-    public Task StoreAsync(MyData myData)
+    public Task StoreAsync(MyClass data)
     {
-        _interceptorsDataContext.MyDataStoreContext.StoredData = myData;
+        _interceptorsDataContext.MyDataStoreContext.StoredData = data;
 
         return _realDataStore != null ? 
-            _realDataStore.StoreAsync(ekycData) : 
+            _realDataStore.StoreAsync(data) : 
             Task.CompletedTask;
     }
 
-    public Task<MyData> GetAsync(string reference)
+    public Task<MyClass> GetAsync(string reference)
     {
         return _realDataStore != null ? 
             _realDataStore.GetAsync(reference) :
-            Task.FromResult(TestDataStore.Repository<MyData>().Items?.FirstOrDefault(i => i.Reference == reference))
+            Task.FromResult(TestDataStore.Repository<MyClass>().Items?.FirstOrDefault(i => i.Reference == reference))
     }
 }
 ```

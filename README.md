@@ -154,11 +154,12 @@ protected override void ConfigureWebHost(IWebHostBuilder builder)
 
     builder.ConfigureTestServices(services =>
     {
-    services.AddTransient<IMyDataStore, MyDataStoreInterceptor>(); // <-- always use the interceptor
+        services.AddTransient<IMyDataStore, MyDataStoreInterceptor>(); // <-- always use the interceptor
 
 #if UseRealProvider
-    services.AddTransient<RealMyDataStore>(); // <-- when "real" mode, register the real implementation with .net DI
+        services.AddTransient<RealMyDataStore>(); // <-- when "real" mode, register the real implementation with .net DI
 #endif
+    }
 }
 
 public class MyDataStoreInterceptor : IMyDataStore

@@ -167,13 +167,8 @@ public class MyDataStoreInterceptor : IMyDataStore
     private readonly InterceptorsDataContext _interceptorsDataContext;
     private readonly RealMyDataStore _realDataStore;
 
-    public EKycDataStoreInterceptor(InterceptorsDataContext interceptorsDataContext) // <-- this version is used when running in memory
+    public MyDataStoreInterceptor(InterceptorsDataContext interceptorsDataContext, RealMyDataStore realDataStore = null) // <-- null when running in memory
      : this(interceptorsDataContext, null)
-    {
-        _interceptorsDataContext = interceptorsDataContext;
-    }
-
-    public EKycDataStoreInterceptor(InterceptorsDataContext interceptorsDataContext, RealMyDataStore realDataStore) // <-- this version is used when running "real" mode
     {
         _interceptorsDataContext = interceptorsDataContext;
         _realDataStore = realDataStore;

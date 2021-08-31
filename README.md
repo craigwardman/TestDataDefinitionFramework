@@ -168,7 +168,6 @@ public class MyDataStoreInterceptor : IMyDataStore
     private readonly RealMyDataStore _realDataStore;
 
     public MyDataStoreInterceptor(InterceptorsDataContext interceptorsDataContext, RealMyDataStore realDataStore = null) // <-- null when running in memory
-     : this(interceptorsDataContext, null)
     {
         _interceptorsDataContext = interceptorsDataContext;
         _realDataStore = realDataStore;

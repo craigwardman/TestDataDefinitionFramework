@@ -140,6 +140,62 @@ public class Context
 }
 ```
 
+### Capturing provider calls with an interceptor when in "real" mode
+Sometimes you'd like to capture calls that were made to your provider layer so that you can make assertions about what was called and with what data. Obviously by swapping out the interceptor to the "real" provider you lose this functionality (unless you could make the same assertion against the "real" repository, but that seems like a bigger problem).
+
+The solution when using TDDF is *not* to remove your interceptor when switching to "real" mode, but instead to use the interceptor class as a decorator over the "real" implementation and inject the "real" class only when running in that mode. For example:
+
+```csharp
+protected override void ConfigureWebHost(IWebHostBuilder builder)
+{
+    base.ConfigureWebHost(builder);
+
+    builder.UseEnvironment("Testing");
+
+    builder.ConfigureTestServices(services =>
+    {
+    services.AddTransient<IMyDataStore, MyDataStoreInterceptor>(); // <-- always use the interceptor
+
+#if UseRealProvider
+    services.AddTransient<RealMyDataStore>(); // <-- when "real" mode, register the real implementation with .net DI
+#endif
+}
+
+public class MyDataStoreInterceptor : IMyDataStore
+{
+    private readonly InterceptorsDataContext _interceptorsDataContext;
+    private readonly RealMyDataStore _realDataStore;
+
+    public EKycDataStoreInterceptor(InterceptorsDataContext interceptorsDataContext) // <-- this version is used when running in memory
+     : this(interceptorsDataContext, null)
+    {
+        _interceptorsDataContext = interceptorsDataContext;
+    }
+
+    public EKycDataStoreInterceptor(InterceptorsDataContext interceptorsDataContext, RealMyDataStore realDataStore) // <-- this version is used when running "real" mode
+    {
+        _interceptorsDataContext = interceptorsDataContext;
+        _realDataStore = realDataStore;
+    }
+
+    public Task StoreAsync(MyData myData)
+    {
+        _interceptorsDataContext.MyDataStoreContext.StoredData = myData;
+
+        return _realDataStore != null ? 
+            _realDataStore.StoreAsync(ekycData) : 
+            Task.CompletedTask;
+    }
+
+    public Task<MyData> GetAsync(string reference)
+    {
+        return _realDataStore != null ? 
+            _realDataStore.GetAsync(reference) :
+            Task.FromResult(TestDataStore.Repository<MyData>().Items?.FirstOrDefault(i => i.Reference == reference))
+    }
+}
+```
+
 ## Contributing
 As you can see this repository is still in it's infancy and so far I've only needed to create a MongoDB plugin.
 Feel free to create your own plugins and raise a merge request so this can grow in it's usefulness!

@@ -351,3 +351,4 @@ MigrationBackup/
 
 # SpecFlow generated
 *.feature.cs
+src/.idea/

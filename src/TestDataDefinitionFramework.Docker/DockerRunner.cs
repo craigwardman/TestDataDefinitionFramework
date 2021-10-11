@@ -9,7 +9,7 @@ namespace TestDataDefinitionFramework.Docker
 {
     public static class DockerRunner
     {
-        public static async Task EnsureContainerIsRunningAsync(string name, string imageName, int exposePort)
+        public static async Task EnsureContainerIsRunningAsync(string name, string imageName, int exposePort, Dictionary<string, string> environmentVariables = null)
         {
             var client = new DockerClientConfiguration()
                 .CreateClient();
@@ -30,10 +30,16 @@ namespace TestDataDefinitionFramework.Docker
                 return;
             }
 
+            await EnsureImageExists(client, imageName);
+
             var containerId = existingContainer?.ID;
 
             if (containerId == null)
             {
+                var env = environmentVariables?
+                    .Select(e => $"{e.Key}={e.Value}")
+                    .ToArray() ?? Array.Empty<string>();
+                    
                 containerId = (
                     await client.Containers.CreateContainerAsync(new CreateContainerParameters
                     {
@@ -56,12 +62,37 @@ namespace TestDataDefinitionFramework.Docker
                                     }
                                 }
                             }
-                        }
+                        },
+                        Env = env,
                     })).ID;
             }
          
             await client.Containers.StartContainerAsync(containerId,
                     new ContainerStartParameters());
+        }
+
+        private static async Task EnsureImageExists(IDockerClient dockerClient, string imageName)
+        {
+            var imagesListResponses = (await dockerClient.Images.ListImagesAsync(new ImagesListParameters
+            {
+                All = true,
+                Filters = new Dictionary<string, IDictionary<string, bool>>
+                {
+                    {"reference", new Dictionary<string, bool> {{imageName, true}} }
+                }
+            }));
+            
+            var exists = imagesListResponses.Count > 0;
+
+            if (!exists)
+            {
+                await dockerClient.Images.CreateImageAsync(new ImagesCreateParameters
+                {
+                    FromImage = imageName
+                }, 
+                new AuthConfig(),
+                new Progress<JSONMessage>());
+            }
         }
     }
 }

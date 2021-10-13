@@ -100,10 +100,20 @@ Now you can run your tests against an in-memory fake, or against a "real" reposi
 * See the ExampleTests project for a working version of the above
 
 ## MongoDB Plugin Notes
-* Provide your own connection string if you already have a MongoDB instance running
+* Provide your own connection string if you already have a MongoDB instance running (beware that collections will be dropped/re-created)
 * If you don't provide a connection string, then the code will attempt to spin up a MongoDB instance on port 27017 using Docker Desktop (so this must be installed and that port must be free if you rely on this feature)
 * The collections will be dropped and re-created on each commit, so please don't point this at a working MongoDB database!
 * Make sure your "repository" names in TDDF match up with the collection name you use in the "real" repository
+
+## SQL Plugin Notes
+* Provide your own connection string if you already have a SQL instance running (beware that tables will be dropped/re-created)
+* If you don't provide a connection string, then the code will attempt to spin up a SQL instance on port 1433 using Docker Desktop (so this must be installed and that port must be free if you rely on this feature)
+* The database will be created when using the Docker version
+* Tables will be dropped and re-created on each commit, so please don't point this at a working SQL database!
+* Make sure your "repository" names in TDDF match up with the table name you use in the "real" repository
+* All objects are created in the dbo namespace
+* Until I come up with a clever solution, when using the Docker instance of SQL you'll need to manually point your SUT appsettings at the expected connection string (see example project for details)
+
 
 ## Architecture
 ![Architecture Diagram](/docs/Architecture.png)

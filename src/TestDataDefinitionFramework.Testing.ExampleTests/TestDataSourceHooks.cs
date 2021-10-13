@@ -2,6 +2,8 @@
 using TechTalk.SpecFlow;
 using TestDataDefinitionFramework.Core;
 using TestDataDefinitionFramework.MongoDB;
+using TestDataDefinitionFramework.Sql;
+using TestDataDefinitionFramework.Testing.ExampleSut.Abstractions;
 using TestDataDefinitionFramework.Testing.ExampleSut.MongoDB.Mongo;
 
 namespace TestDataDefinitionFramework.Testing.ExampleTests
@@ -19,12 +21,22 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests
         [BeforeTestRun]
         public static async Task Initialize()
         {
+#if UseRealProvider
             var mongoBackingStore = new MongoBackingStore("ExampleSutDB");
+            var sqlBackingStore = new SqlBackingStore("SummaryDescriptions");
+#endif
             TestDataStore.AddRepository<SummaryItem>(cfg =>
             {
                 cfg.WithName(SummaryCollection.Name);
 #if UseRealProvider
                     cfg.WithBackingStore(mongoBackingStore);
+#endif
+            });
+            
+            TestDataStore.AddRepository<SummaryDescription>(cfg =>
+            {
+#if UseRealProvider
+                    cfg.WithBackingStore(sqlBackingStore);
 #endif
             });
 

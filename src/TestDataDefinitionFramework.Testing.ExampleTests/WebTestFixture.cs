@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using TestDataDefinitionFramework.Testing.ExampleSut;
 using TestDataDefinitionFramework.Testing.ExampleSut.Abstractions;
+using TestDataDefinitionFramework.Testing.ExampleSut.Sql;
 using TestDataDefinitionFramework.Testing.ExampleTests.InMemoryRepositories;
 
 namespace TestDataDefinitionFramework.Testing.ExampleTests
@@ -20,6 +21,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests
             {
 #if !UseRealProvider
                 services.AddTransient<ISummariesRepository, InMemorySummariesRepository>();
+                services.AddTransient<ISummaryDescriptionRepository, InMemorySummaryDescriptionRepository>();
 #endif
             });
         }

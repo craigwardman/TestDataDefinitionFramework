@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 using TestDataDefinitionFramework.Core;
+using TestDataDefinitionFramework.Testing.ExampleSut;
+using TestDataDefinitionFramework.Testing.ExampleSut.Abstractions;
 using TestDataDefinitionFramework.Testing.ExampleSut.MongoDB.Mongo;
 
 namespace TestDataDefinitionFramework.Testing.ExampleTests.Features.WeatherForcecast
@@ -46,5 +49,28 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests.Features.WeatherForce
             TestDataStore.Repository<SummaryItem>(SummaryCollection.Name).Items = items.Select(i => new SummaryItem {Name = i}).ToArray();
         }
 
+        [Given(@"the summary description repository returns")]
+        public void GivenTheSummaryDescriptionRepositoryReturns(Table table)
+        {
+            var items = table.CreateSet<SummaryDescription>().ToArray();
+            TestDataStore.Repository<SummaryDescription>().Items = items;
+        }
+
+        [Then(@"the weather forecase items match the repository data")]
+        public void ThenTheWeatherForecaseItemsMatchTheRepositoryData()
+        {
+            var repositorySummaryItems = TestDataStore.Repository<SummaryItem>(SummaryCollection.Name).Items;
+            var repositoryDescriptionItems = TestDataStore.Repository<SummaryDescription>().Items;
+
+            var expected = repositorySummaryItems.Select(rs =>
+                new WeatherForecast
+                {
+                    Summary = rs.Name,
+                    Description = repositoryDescriptionItems.Single(d => d.Name == rs.Name).Description
+                }).ToList();
+
+            _context.WeatherForecastResult.Should().BeEquivalentTo(expected,
+                cfg => cfg.Including(wf => wf.Summary).Including(wf => wf.Description));
+        }
     }
 }

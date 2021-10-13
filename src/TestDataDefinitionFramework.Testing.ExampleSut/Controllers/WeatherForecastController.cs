@@ -12,10 +12,12 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly ISummariesRepository _summariesRepository;
+        private readonly ISummaryDescriptionRepository _summaryDescriptionRepository;
 
-        public WeatherForecastController(ISummariesRepository summariesRepository)
+        public WeatherForecastController(ISummariesRepository summariesRepository, ISummaryDescriptionRepository summaryDescriptionRepository)
         {
             _summariesRepository = summariesRepository ?? throw new ArgumentNullException(nameof(summariesRepository));
+            _summaryDescriptionRepository = summaryDescriptionRepository ?? throw new ArgumentNullException(nameof(summaryDescriptionRepository));
         }
 
         [HttpGet]
@@ -23,13 +25,14 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.Controllers
         {
             var summaries = await _summariesRepository.GetAllAsync();
             var rng = new Random();
-            return summaries.Select((summary, index) => new WeatherForecast
+            return await Task.WhenAll(summaries.Select(async (summary, index) => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = summary
+                Summary = summary,
+                Description = (await _summaryDescriptionRepository.GetSummaryDescription(summary))?.Description ?? string.Empty
             })
-            .ToArray();
+            .ToArray());
         }
     }
 }

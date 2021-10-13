@@ -11,5 +11,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
         public string Summary { get; set; }
+
+        public string Description { get; set; }
     }
 }

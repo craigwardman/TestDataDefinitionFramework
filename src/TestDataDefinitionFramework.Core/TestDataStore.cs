@@ -41,7 +41,7 @@ namespace TestDataDefinitionFramework.Core
         {
             return !string.IsNullOrEmpty(customName) ?
                 customName :
-                typeof(T).FullName ?? throw new InvalidOperationException("Unsupported type name. You must supply a type that has a FullName, or give a custom name.");
+                typeof(T).Name;
         }
 
         public static Task InitializeAllAsync()

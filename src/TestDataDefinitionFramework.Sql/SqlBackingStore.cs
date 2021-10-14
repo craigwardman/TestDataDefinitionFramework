@@ -10,7 +10,6 @@ namespace TestDataDefinitionFramework.Sql
     {
         private readonly string _databaseName;
         private SqlConnection _dbConnection;
-        private string _connectionString;
 
         /// <param name="databaseName">Provide the database name you are using in your "real" repositories</param>
         /// <param name="connectionString">
@@ -22,8 +21,10 @@ namespace TestDataDefinitionFramework.Sql
             if (string.IsNullOrWhiteSpace(databaseName))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(databaseName));
             _databaseName = databaseName;
-            _connectionString = connectionString;
+            ConnectionString = connectionString;
         }
+
+        public string ConnectionString { get; private set; }
 
         public async Task CommitAsync<T>(RepositoryConfig config, IReadOnlyList<T> items)
         {
@@ -40,10 +41,10 @@ namespace TestDataDefinitionFramework.Sql
         {
             if (_dbConnection == null)
             {
-                if (string.IsNullOrEmpty(_connectionString))
-                    _connectionString = await SqlDockerActions.SetupDatabase(_databaseName);
+                if (string.IsNullOrEmpty(ConnectionString))
+                    ConnectionString = await SqlDockerActions.SetupDatabase(_databaseName);
 
-                _dbConnection = new SqlConnection(_connectionString);
+                _dbConnection = new SqlConnection(ConnectionString);
                 await _dbConnection.OpenAsync();
             }
         }

@@ -10,7 +10,7 @@ namespace TestDataDefinitionFramework.Core
             Config = config ?? throw new ArgumentNullException(nameof(config));
         }
 
-        internal RepositoryConfig Config { get; }
+        public RepositoryConfig Config { get; }
 
         internal abstract Task CommitAsync();
     }

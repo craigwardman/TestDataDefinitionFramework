@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using TestDataDefinitionFramework.Docker;
@@ -36,8 +37,7 @@ namespace TestDataDefinitionFramework.Sql
         private static async Task CreateDatabaseIfNotExists(string databaseName)
         {
             var masterConnectionString = GetDockerConnectionString("master");
-            await using var connection = new SqlConnection(masterConnectionString);
-            await connection.OpenAsync();
+            var connection = await TryEstablishConnection(masterConnectionString);
 
             var command = connection.CreateCommand();
             command.CommandText = $@"
@@ -49,6 +49,29 @@ END";
             await command.ExecuteNonQueryAsync();
 
             await connection.CloseAsync();
+            await connection.DisposeAsync();
+        }
+
+        private static async Task<SqlConnection> TryEstablishConnection(string connectionString)
+        {
+            for (var attempt = 1; attempt <= 10; attempt++)
+            {
+                var connection = new SqlConnection(connectionString);
+                try
+                {
+                    await connection.OpenAsync();
+                    return connection;
+                }
+                catch (SqlException)
+                {
+                    if (attempt == 10)
+                        throw;
+                    
+                    await Task.Delay(1000 * attempt);
+                }
+            }
+
+            throw new Exception("Unable to connect to SQL");
         }
     }
 }

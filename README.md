@@ -112,7 +112,17 @@ Now you can run your tests against an in-memory fake, or against a "real" reposi
 * Tables will be dropped and re-created on each commit, so please don't point this at a working SQL database!
 * Make sure your "repository" names in TDDF match up with the table name you use in the "real" repository
 * All objects are created in the dbo namespace
-* Until I come up with a clever solution, when using the Docker instance of SQL you'll need to manually point your SUT appsettings at the expected connection string (see example project for details)
+* When using the built-in Docker hosted SQL server, in order to point the SUT at the correct connection string, override your configuration object in the WebTestFixture, e.g.
+```csharp
+services.AddTransient<SqlDataStoreConfig>();
+services.AddTransient<ISqlDataStoreConfig>(sp =>
+{
+	var config = sp.GetRequiredService<SqlDataStoreConfig>();
+	config.ConnectionString = TestDataStore.Repository<SummaryDescription>().Config.BackingStore?
+		.ConnectionString ?? config.ConnectionString;
+	return config;
+});
+```
 
 
 ## Architecture

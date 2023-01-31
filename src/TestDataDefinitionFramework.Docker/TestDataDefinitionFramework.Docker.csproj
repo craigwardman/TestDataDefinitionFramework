@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
     <Title>TestDataDefinitionFramework.Docker</Title>
     <PackageId>TestDataDefinitionFramework.Docker</PackageId>
@@ -15,6 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Docker.DotNet" Version="3.125.4" />
+    <PackageReference Include="Docker.DotNet" Version="3.125.12" />
   </ItemGroup>
 </Project>

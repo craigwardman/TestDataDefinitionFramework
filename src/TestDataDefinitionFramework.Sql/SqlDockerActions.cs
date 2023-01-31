@@ -20,7 +20,7 @@ namespace TestDataDefinitionFramework.Sql
 
         private static string GetDockerConnectionString(string databaseName)
         {
-            return $"Server=localhost,1433; Database={databaseName}; User Id=sa; Password={SqlSaPassword}; MultipleActiveResultSets=True";
+            return $"Server=localhost,1433; Database={databaseName}; User Id=sa; Password={SqlSaPassword}; MultipleActiveResultSets=True; Encrypt=False";
         }
 
         private static Task EnsureContainerRunning()

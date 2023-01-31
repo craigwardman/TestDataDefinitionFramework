@@ -98,6 +98,7 @@ Now you can run your tests against an in-memory fake, or against a "real" reposi
 
 ## Notes
 * See the ExampleTests project for a working version of the above
+* On first run, when you haven't specified your own connection string, TDDF will spin up containers using Docker - so please ensure Docker is installed and be patient on the first run while images are downloaded.
 
 ## MongoDB Plugin Notes
 * Provide your own connection string if you already have a MongoDB instance running (beware that collections will be dropped/re-created)

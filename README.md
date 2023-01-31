@@ -213,5 +213,5 @@ public class MyDataStoreInterceptor : IMyDataStore
 ```
 
 ## Contributing
-As you can see this repository is still in it's infancy and so far I've only needed to create a MongoDB plugin.
+As you can see this repository is still in it's infancy and so far I've only needed to create a few plugins.
 Feel free to create your own plugins and raise a merge request so this can grow in it's usefulness!

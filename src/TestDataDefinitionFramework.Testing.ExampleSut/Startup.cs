@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TestDataDefinitionFramework.Testing.ExampleSut.Infrastructure;
 using TestDataDefinitionFramework.Testing.ExampleSut.MongoDB;
+using TestDataDefinitionFramework.Testing.ExampleSut.Redis;
 using TestDataDefinitionFramework.Testing.ExampleSut.Sql;
 
 namespace TestDataDefinitionFramework.Testing.ExampleSut
@@ -33,6 +34,9 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut
 
             services.AddSingleton<ISqlDataStoreConfig, SqlDataStoreConfig>();
             services.AddSqlRepository();
+
+            services.AddSingleton<IRedisDataStoreConfig, RedisDataStoreConfig>();
+            services.AddRedisRepository();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

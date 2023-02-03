@@ -56,21 +56,34 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests.Features.WeatherForce
             TestDataStore.Repository<SummaryDescription>().Items = items;
         }
 
-        [Then(@"the weather forecase items match the repository data")]
-        public void ThenTheWeatherForecaseItemsMatchTheRepositoryData()
+        [Then(@"the weather forecast items match the repository data")]
+        public void ThenTheWeatherForecastItemsMatchTheRepositoryData()
         {
             var repositorySummaryItems = TestDataStore.Repository<SummaryItem>(SummaryCollection.Name).Items;
             var repositoryDescriptionItems = TestDataStore.Repository<SummaryDescription>().Items;
+            var repositoryTemperatureItems = TestDataStore.Repository<(string Key, SummaryTemperature Value)>().Items;
 
             var expected = repositorySummaryItems.Select(rs =>
                 new WeatherForecast
                 {
                     Summary = rs.Name,
-                    Description = repositoryDescriptionItems.Single(d => d.Name == rs.Name).Description
+                    Description = repositoryDescriptionItems.Single(d => d.Name == rs.Name).Description,
+                    TempLow = repositoryTemperatureItems.Single(t => t.Key == rs.Name).Value.Low,
+                    TempHigh = repositoryTemperatureItems.Single(t => t.Key == rs.Name).Value.High,
                 }).ToList();
 
             _context.WeatherForecastResult.Should().BeEquivalentTo(expected,
-                cfg => cfg.Including(wf => wf.Summary).Including(wf => wf.Description));
+                cfg => cfg.Excluding(wf => wf.Date));
+        }
+
+        [Given(@"the summary temperature repository contains")]
+        public void GivenTheSummaryTemperatureRepositoryContains(Table table)
+        {
+            TestDataStore.Repository<(string Key, SummaryTemperature Value)>().Items = (from tableRow in table.Rows
+                let key = tableRow["Name"]
+                let value = new SummaryTemperature(Convert.ToInt32(tableRow["High"]),
+                    Convert.ToInt32(tableRow["Low"]))
+                select (key, value)).ToList();
         }
     }
 }

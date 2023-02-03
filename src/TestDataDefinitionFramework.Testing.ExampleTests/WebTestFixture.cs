@@ -27,6 +27,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests
 #if !UseRealProvider
                 services.AddTransient<ISummariesRepository, InMemorySummariesRepository>();
                 services.AddTransient<ISummaryDescriptionRepository, InMemorySummaryDescriptionRepository>();
+                services.AddTransient<ISummaryTemperatureRepository, InMemorySummaryTemperatureRepository>();
 #else
                 services.AddTransient<SqlDataStoreConfig>();
                 services.AddTransient<ISqlDataStoreConfig>(sp =>

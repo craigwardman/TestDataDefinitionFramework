@@ -25,7 +25,7 @@ namespace TestDataDefinitionFramework.Core
                     $"Could not add repository with name {repoConfig.Name}. Names must be unique.");
             }
         }
-
+        
         public static Repository<T> Repository<T>(string name = default)
         {
             if (!RepositoriesByName.TryGetValue(GetName<T>(name), out var repository))

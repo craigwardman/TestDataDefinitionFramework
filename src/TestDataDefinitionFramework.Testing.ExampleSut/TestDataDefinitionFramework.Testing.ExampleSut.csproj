@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TestDataDefinitionFramework.Testing.ExampleSut.Abstractions\TestDataDefinitionFramework.Testing.ExampleSut.Abstractions.csproj" />
     <ProjectReference Include="..\TestDataDefinitionFramework.Testing.ExampleSut.MongoDB\TestDataDefinitionFramework.Testing.ExampleSut.MongoDB.csproj" />
+    <ProjectReference Include="..\TestDataDefinitionFramework.Testing.ExampleSut.Redis\TestDataDefinitionFramework.Testing.ExampleSut.Redis.csproj" />
     <ProjectReference Include="..\TestDataDefinitionFramework.Testing.ExampleSut.Sql\TestDataDefinitionFramework.Testing.ExampleSut.Sql.csproj" />
   </ItemGroup>
 

@@ -125,6 +125,25 @@ services.AddTransient<ISqlDataStoreConfig>(sp =>
 });
 ```
 
+## Redis Plugin Notes
+* The plugin uses "StringSet", so only supports SUTs that use StringGet to obtain data.
+* Since Redis is a Key/Value store, you are required to provide the methods for serializing items into "string key" and "string value"
+* The serialization method should match exactly how the SUT works, so it can deserialize the tests data successfully
+* If your type doesn't naturally have a "key", then you can wrap it with a tuple, e.g.
+```csharp
+var redisBackingStore = new RedisBackingStore(
+    new KeyValueResolver()
+        .WithResolver<(string Key, YourTypeHere Value)>(
+            item => (item.Key, sutRedisSerializer.Serialize(item.Value))
+        ));
+        
+TestDataStore.AddRepository<(string Key, YourTypeHere Value)>(cfg =>
+        {
+#if UseRealProvider
+            cfg.WithBackingStore(redisBackingStore);
+#endif
+        });
+```
 
 ## Architecture
 ![Architecture Diagram](/docs/Architecture.png)

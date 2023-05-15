@@ -6,7 +6,7 @@
     <Title>TestDataDefinitionFramework.Core</Title>
     <PackageId>TestDataDefinitionFramework.Core</PackageId>
     <PackageDescription>Core package for using the TestDataDefinitionFramework</PackageDescription>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <Authors>Craig Wardman</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/craigwardman/TestDataDefinitionFramework</PackageProjectUrl>

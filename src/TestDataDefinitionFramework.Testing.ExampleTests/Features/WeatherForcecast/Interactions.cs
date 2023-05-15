@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TestDataDefinitionFramework.Testing.ExampleSut;
@@ -14,7 +15,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests.Features.WeatherForce
             _fixture = fixture;
         }
 
-        public HttpResponseMessage Response { get; private set; }
+        public HttpResponseMessage Response { get; private set; } = new();
 
         public async Task<IReadOnlyList<WeatherForecast>> GetWeatherForecastAsync()
         {
@@ -24,7 +25,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests.Features.WeatherForce
 
             return Response.IsSuccessStatusCode
                 ? await Response.Content.ReadAsAsync<WeatherForecast[]>()
-                : null;
+                : Array.Empty<WeatherForecast>();
         }
     }
 }

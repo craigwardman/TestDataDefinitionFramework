@@ -10,25 +10,28 @@ namespace TestDataDefinitionFramework.MongoDB
     public class MongoBackingStore : ITestDataBackingStore
     {
         private readonly string _databaseName;
-        private IMongoDatabase _mongoDatabase;
+        private IMongoDatabase? _mongoDatabase;
 
         /// <param name="databaseName">Provide the database name you are using in your "real" repositories</param>
         /// <param name="connectionString">
         ///     Provide a connection string to your MongoDB instance. If you do not provide a connection
         ///     string then this class will attempt to spin up a MongoDB instance using your local Docker Desktop installation.
         /// </param>
-        public MongoBackingStore(string databaseName, string connectionString = default)
+        public MongoBackingStore(string databaseName, string? connectionString = default)
         {
             if (string.IsNullOrWhiteSpace(databaseName))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(databaseName));
             _databaseName = databaseName;
-            ConnectionString = connectionString;
+            ConnectionString = connectionString ?? string.Empty;
         }
 
         public string ConnectionString { get; private set; }
 
         public async Task CommitAsync<T>(RepositoryConfig config, IReadOnlyList<T> items)
         {
+            if (_mongoDatabase == null)
+                throw new InvalidOperationException("You cannot call Commit until you've called Initialize");
+            
             await _mongoDatabase.DropCollectionAsync(config.Name);
             await _mongoDatabase.CreateCollectionAsync(config.Name);
 

@@ -2,8 +2,8 @@
 {
     public class RepositoryConfig
     {
-        public string Name { get; init; }
+        public string Name { get; init; } = string.Empty;
 
-        public ITestDataBackingStore BackingStore { get; init; }
+        public ITestDataBackingStore? BackingStore { get; init; }
     }
 }

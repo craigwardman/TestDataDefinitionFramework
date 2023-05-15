@@ -12,6 +12,7 @@
     <PackageProjectUrl>https://github.com/craigwardman/TestDataDefinitionFramework</PackageProjectUrl>
     <RepositoryUrl>https://github.com/craigwardman/TestDataDefinitionFramework.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

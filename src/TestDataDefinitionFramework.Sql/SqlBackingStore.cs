@@ -9,26 +9,29 @@ namespace TestDataDefinitionFramework.Sql
     public sealed class SqlBackingStore : ITestDataBackingStore, IDisposable
     {
         private readonly string _databaseName;
-        private SqlConnection _dbConnection;
+        private SqlConnection? _dbConnection;
 
         /// <param name="databaseName">Provide the database name you are using in your "real" repositories</param>
         /// <param name="connectionString">
         ///     Provide a connection string to your Sql instance. If you do not provide a connection
         ///     string then this class will attempt to spin up a Sql instance using your local Docker Desktop installation.
         /// </param>
-        public SqlBackingStore(string databaseName, string connectionString = default)
+        public SqlBackingStore(string databaseName, string? connectionString = default)
         {
             if (string.IsNullOrWhiteSpace(databaseName))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(databaseName));
             _databaseName = databaseName;
-            ConnectionString = connectionString;
+            ConnectionString = connectionString ?? string.Empty;
         }
 
         public string ConnectionString { get; private set; }
 
         public async Task CommitAsync<T>(RepositoryConfig config, IReadOnlyList<T> items)
         {
-            var dataTable = (items ?? Array.Empty<T>()).ToDataTable(config.Name);
+            if (_dbConnection == null)
+                throw new InvalidOperationException("You cannot call Commit until you've called Initialize");
+            
+            var dataTable = items.ToDataTable(config.Name);
 
             await SqlTableActions.SetupSqlTable(_dbConnection, dataTable);
 

@@ -6,7 +6,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.MongoDB.Mongo
 {
     internal class MongoConnection : IMongoConnection
     {
-        public MongoConnection(IMongoDataStoreConfig config, IEnumerable<IBootstrapped> bootstrappedItems)
+        public MongoConnection(IMongoDataStoreConfig config, IEnumerable<IBootstrapped>? bootstrappedItems)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));
 

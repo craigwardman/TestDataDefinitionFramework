@@ -10,5 +10,5 @@ public class RedisDataStoreConfig : IRedisDataStoreConfig
         configuration.Bind("Redis", this);
     }
         
-    public string ConnectionString { get; set; }
+    public string ConnectionString { get; set; } = string.Empty;
 }

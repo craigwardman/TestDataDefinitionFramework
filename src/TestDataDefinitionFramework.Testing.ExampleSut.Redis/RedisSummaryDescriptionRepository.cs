@@ -18,7 +18,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.Redis
             _connection = ConnectionMultiplexer.Connect(config.ConnectionString);
         }
         
-        public async Task<SummaryTemperature> GetSummaryTemperature(string summaryName)
+        public async Task<SummaryTemperature?> GetSummaryTemperature(string summaryName)
         {
             var redisValue = await _connection.GetDatabase().StringGetAsync(summaryName);
             return _redisSerializer.Deserialize<SummaryTemperature>(redisValue);

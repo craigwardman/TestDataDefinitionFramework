@@ -10,8 +10,8 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut
         
         public int TempLow { get; set; }
 
-        public string Summary { get; set; }
+        public string Summary { get; set; } = string.Empty;
 
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
     }
 }

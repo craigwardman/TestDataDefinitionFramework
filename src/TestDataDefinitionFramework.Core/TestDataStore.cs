@@ -10,7 +10,7 @@ namespace TestDataDefinitionFramework.Core
         private static readonly ConcurrentDictionary<string, RepositoryBase> 
             RepositoriesByName = new();
 
-        public static void AddRepository<T>(Action<RepositoryConfigBuilder> configurationAction = null)
+        public static void AddRepository<T>(Action<RepositoryConfigBuilder>? configurationAction = null)
         {
             var repoConfigBuilder = new RepositoryConfigBuilder()
                 .WithName(GetName<T>(string.Empty));
@@ -26,7 +26,7 @@ namespace TestDataDefinitionFramework.Core
             }
         }
         
-        public static Repository<T> Repository<T>(string name = default)
+        public static Repository<T> Repository<T>(string? name = default)
         {
             if (!RepositoriesByName.TryGetValue(GetName<T>(name), out var repository))
             {
@@ -37,7 +37,7 @@ namespace TestDataDefinitionFramework.Core
             return (Repository<T>)repository;
         }
 
-        private static string GetName<T>(string customName)
+        private static string GetName<T>(string? customName)
         {
             return !string.IsNullOrEmpty(customName) ?
                 customName :
@@ -52,7 +52,7 @@ namespace TestDataDefinitionFramework.Core
                 .Select(s => s.Key)
                 .ToArray();
 
-            return Task.WhenAll(allBackingStores.Select(s => s.InitializeAsync()));
+            return Task.WhenAll(allBackingStores.Select(s => s!.InitializeAsync()));
         }
 
         public static Task CommitAllAsync()

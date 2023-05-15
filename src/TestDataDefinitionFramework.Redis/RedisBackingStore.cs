@@ -9,7 +9,7 @@ namespace TestDataDefinitionFramework.Redis
 {
     public class RedisBackingStore : ITestDataBackingStore
     {
-        private IConnectionMultiplexer _redisConnection;
+        private IConnectionMultiplexer? _redisConnection;
         private readonly KeyValueResolver _keyValueResolver;
 
         /// <param name="keyValueResolver">You must provide an instance of the KeyValueResolver class that is configured to serialize keys and values (matching the method used by the SUT)</param>
@@ -17,16 +17,19 @@ namespace TestDataDefinitionFramework.Redis
         ///     Provide a connection string to your Redis instance. If you do not provide a connection
         ///     string then this class will attempt to spin up a Redis instance using your local Docker Desktop installation.
         /// </param>
-        public RedisBackingStore(KeyValueResolver keyValueResolver, string connectionString = default)
+        public RedisBackingStore(KeyValueResolver keyValueResolver, string? connectionString = default)
         {
             _keyValueResolver = keyValueResolver ?? throw new ArgumentNullException(nameof(keyValueResolver));
-            ConnectionString = connectionString;
+            ConnectionString = connectionString ?? string.Empty;
         }
 
         public string ConnectionString { get; private set; }
 
         public async Task CommitAsync<T>(RepositoryConfig config, IReadOnlyList<T> items)
         {
+            if (_redisConnection == null)
+                throw new InvalidOperationException("You cannot call Commit until you've called Initialize");
+            
             var db = _redisConnection.GetDatabase();
 
             if (items is { Count: > 0 })

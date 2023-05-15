@@ -18,7 +18,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.Sql
             _connection.Open();
         }
         
-        public async Task<SummaryDescription> GetSummaryDescription(string summaryName)
+        public async Task<SummaryDescription?> GetSummaryDescription(string summaryName)
         {
             var rows = await _connection.QueryAsync<SummaryDescription>(
                 "SELECT * FROM SummaryDescription WHERE Name = @Name",
@@ -27,7 +27,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.Sql
                 null,
                 CommandType.Text);
 
-            return rows.FirstOrDefault();
+            return rows?.FirstOrDefault();
         }
 
         public void Dispose()

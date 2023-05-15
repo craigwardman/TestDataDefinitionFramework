@@ -4,6 +4,6 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.Abstractions
 {
     public interface ISummaryDescriptionRepository
     {
-        Task<SummaryDescription> GetSummaryDescription(string summaryName);
+        Task<SummaryDescription?> GetSummaryDescription(string summaryName);
     }
 }

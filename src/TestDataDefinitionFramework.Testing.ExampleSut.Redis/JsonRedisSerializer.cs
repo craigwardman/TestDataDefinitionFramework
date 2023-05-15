@@ -9,8 +9,8 @@ public class JsonRedisSerializer : IRedisSerializer
         return JsonConvert.SerializeObject(item);
     }
 
-    public T Deserialize<T>(string value)
+    public T? Deserialize<T>(string? value)
     {
-        return JsonConvert.DeserializeObject<T>(value);
+        return JsonConvert.DeserializeObject<T>(value ?? string.Empty);
     }
 }

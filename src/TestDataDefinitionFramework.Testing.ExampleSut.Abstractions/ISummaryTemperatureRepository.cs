@@ -4,5 +4,5 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.Abstractions;
 
 public interface ISummaryTemperatureRepository
 {
-    Task<SummaryTemperature> GetSummaryTemperature(string summaryName);
+    Task<SummaryTemperature?> GetSummaryTemperature(string summaryName);
 }

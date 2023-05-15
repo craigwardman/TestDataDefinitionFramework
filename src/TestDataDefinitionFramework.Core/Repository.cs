@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace TestDataDefinitionFramework.Core
@@ -10,7 +11,7 @@ namespace TestDataDefinitionFramework.Core
         {
         }
 
-        public IReadOnlyList<T> Items { get; set; }
+        public IReadOnlyList<T> Items { get; set; } = Array.Empty<T>();
 
         internal override Task CommitAsync()
         {

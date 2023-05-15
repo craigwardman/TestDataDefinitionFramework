@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TestDataDefinitionFramework.Testing.ExampleSut;
 
 namespace TestDataDefinitionFramework.Testing.ExampleTests.Features.WeatherForcecast
 {
     public class Context
     {
-        public IReadOnlyList<WeatherForecast> WeatherForecastResult { get; set; }
+        public IReadOnlyList<WeatherForecast> WeatherForecastResult { get; set; } = Array.Empty<WeatherForecast>();
     }
 }

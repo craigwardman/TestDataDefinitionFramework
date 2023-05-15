@@ -4,8 +4,8 @@ namespace TestDataDefinitionFramework.Core
 {
     public class RepositoryConfigBuilder
     {
-        private ITestDataBackingStore _backingStore;
-        private string _name;
+        private ITestDataBackingStore? _backingStore;
+        private string? _name;
 
         public RepositoryConfigBuilder WithBackingStore(ITestDataBackingStore backingStore)
         {

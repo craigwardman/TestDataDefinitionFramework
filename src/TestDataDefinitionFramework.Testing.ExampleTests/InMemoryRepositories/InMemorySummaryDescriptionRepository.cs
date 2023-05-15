@@ -7,10 +7,10 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests.InMemoryRepositories
 {
     public class InMemorySummaryDescriptionRepository : ISummaryDescriptionRepository
     {
-        public Task<SummaryDescription> GetSummaryDescription(string summaryName)
+        public Task<SummaryDescription?> GetSummaryDescription(string summaryName)
         {
             var result = TestDataStore.Repository<SummaryDescription>()
-                .Items?.FirstOrDefault(i => i.Name == summaryName);
+                .Items.FirstOrDefault(i => i.Name == summaryName);
 
             return Task.FromResult(result);
         }

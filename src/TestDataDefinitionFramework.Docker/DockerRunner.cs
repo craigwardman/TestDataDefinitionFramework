@@ -9,7 +9,7 @@ namespace TestDataDefinitionFramework.Docker
 {
     public static class DockerRunner
     {
-        public static async Task EnsureContainerIsRunningAsync(string name, string imageName, int exposePort, Dictionary<string, string> environmentVariables = null)
+        public static async Task EnsureContainerIsRunningAsync(string name, string imageName, int exposePort, Dictionary<string, string>? environmentVariables = null)
         {
             var client = new DockerClientConfiguration()
                 .CreateClient();

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TestDataDefinitionFramework.Core;
@@ -13,8 +12,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleTests.InMemoryRepositories
         public Task<IReadOnlyList<string>> GetAllAsync()
         {
             var result = TestDataStore.Repository<SummaryItem>(SummaryCollection.Name)
-                             .Items?.Select(i => i.Name).ToArray()
-                ?? Array.Empty<string>();
+                             .Items.Select(i => i.Name).ToArray();
 
             return Task.FromResult((IReadOnlyList<string>) result);
         }

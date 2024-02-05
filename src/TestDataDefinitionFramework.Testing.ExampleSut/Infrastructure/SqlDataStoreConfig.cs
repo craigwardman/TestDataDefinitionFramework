@@ -7,7 +7,7 @@ namespace TestDataDefinitionFramework.Testing.ExampleSut.Infrastructure
     {
         public SqlDataStoreConfig(IConfiguration configuration)
         {
-            ConnectionString = configuration.GetConnectionString("SqlServer");
+            ConnectionString = configuration.GetConnectionString("SqlServer") ?? string.Empty;
         }
         
         public string ConnectionString { get; set; }

@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
 
     <Title>TestDataDefinitionFramework.Sql</Title>
     <PackageId>TestDataDefinitionFramework.Sql</PackageId>
     <PackageDescription>Sql backing store extension for TestDataDefinitionFramework</PackageDescription>
-    <Version>2.0.1</Version>
+    <Version>3.0.0</Version>
     <Authors>Craig Wardman</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/craigwardman/TestDataDefinitionFramework</PackageProjectUrl>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
   </ItemGroup>
 
 </Project>

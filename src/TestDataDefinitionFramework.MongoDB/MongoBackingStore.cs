@@ -46,7 +46,7 @@ namespace TestDataDefinitionFramework.MongoDB
             {
                 if (string.IsNullOrEmpty(ConnectionString))
                 {
-                    await DockerRunner.EnsureContainerIsRunningAsync("tddf-mongo", "mongo:4.0-xenial", 27017);
+                    await DockerRunner.EnsureContainerIsRunningAsync("tddf-mongo", "mongo:latest", 27017);
                     ConnectionString = "mongodb://localhost:27017";
                 }
 

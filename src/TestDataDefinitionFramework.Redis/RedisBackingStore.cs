@@ -48,7 +48,7 @@ namespace TestDataDefinitionFramework.Redis
             {
                 if (string.IsNullOrEmpty(ConnectionString))
                 {
-                    await DockerRunner.EnsureContainerIsRunningAsync("tddf-redis", "redis:7.0.8-alpine", 6379);
+                    await DockerRunner.EnsureContainerIsRunningAsync("tddf-redis", "redis:alpine", 6379);
                     ConnectionString = "localhost";
                 }
 
